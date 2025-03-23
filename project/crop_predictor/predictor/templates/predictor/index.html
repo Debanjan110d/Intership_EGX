@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Crop Prediction System</title>
+		<style>
+			:root {
+				--primary-color: #27ae60;
+				--secondary-color: #2980b9;
+				--background-color: #f9f9f9;
+				--card-background: #ffffff;
+				--text-color: #333333;
+				--border-color: #e0e0e0;
+			}
+
+			body {
+				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+				line-height: 1.6;
+				margin: 0;
+				padding: 0;
+				background-color: var(--background-color);
+				color: var(--text-color);
+			}
+
+			.container {
+				max-width: 800px;
+				margin: 40px auto;
+				padding: 30px;
+				background-color: var(--card-background);
+				border-radius: 10px;
+				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+			}
+
+			header {
+				text-align: center;
+				margin-bottom: 30px;
+			}
+
+			h1 {
+				color: var(--primary-color);
+				margin-bottom: 10px;
+				font-size: 2.5rem;
+			}
+
+			.tagline {
+				color: #777;
+				font-size: 1.1rem;
+				margin-top: 0;
+			}
+
+			.info-box {
+				background-color: rgba(39, 174, 96, 0.1);
+				border-left: 4px solid var(--primary-color);
+				padding: 15px 20px;
+				margin: 25px 0;
+				border-radius: 4px;
+			}
+
+			.info-box p {
+				margin: 10px 0;
+			}
+
+			.form-container {
+				margin-top: 30px;
+			}
+
+			.form-group {
+				margin-bottom: 25px;
+			}
+
+			label {
+				display: block;
+				margin-bottom: 8px;
+				font-weight: 600;
+				color: #555;
+				font-size: 1rem;
+			}
+
+			input[type="number"] {
+				width: 100%;
+				padding: 12px 15px;
+				border: 1px solid var(--border-color);
+				border-radius: 6px;
+				font-size: 1rem;
+				transition: border 0.3s ease;
+				box-sizing: border-box;
+			}
+
+			input[type="number"]:focus {
+				border-color: var(--primary-color);
+				outline: none;
+				box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+			}
+
+			/* Remove arrow keys from number inputs */
+			input[type="number"] {
+				-moz-appearance: textfield;
+			}
+
+			input[type="number"]::-webkit-outer-spin-button,
+			input[type="number"]::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+				margin: 0;
+			}
+
+			.range-info {
+				display: flex;
+				justify-content: space-between;
+				font-size: 0.8rem;
+				color: #777;
+				margin-top: 5px;
+			}
+
+			button {
+				background-color: var(--primary-color);
+				color: white;
+				border: none;
+				padding: 14px 20px;
+				border-radius: 6px;
+				cursor: pointer;
+				font-size: 1.1rem;
+				font-weight: 600;
+				display: block;
+				width: 100%;
+				transition: background-color 0.3s ease;
+				margin-top: 30px;
+			}
+
+			button:hover {
+				background-color: #219653;
+			}
+
+			.parameter-icon {
+				display: inline-block;
+				width: 20px;
+				text-align: center;
+				margin-right: 5px;
+			}
+
+			footer {
+				text-align: center;
+				margin-top: 40px;
+				font-size: 0.9rem;
+				color: #777;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1>🌱 Crop Prediction System</h1>
+				<p class="tagline">
+					Find the perfect crop for your environmental conditions
+				</p>
+			</header>
+
+			<div class="info-box">
+				<p>
+					<strong>Welcome!</strong> Our advanced AI system analyzes your
+					environmental parameters to recommend the most suitable crop for
+					your farm.
+				</p>
+				<p>Enter accurate values below for the most reliable prediction.</p>
+			</div>
+
+			<div class="form-container">
+				<form action="{% url 'predict' %}" method="post">
+					{% csrf_token %}
+
+					<div class="form-group">
+						<label for="temperature"
+							><span class="parameter-icon">🌡️</span>Temperature
+							(°C):</label
+						>
+						<input
+							type="number"
+							id="temperature"
+							name="temperature"
+							step="0.1"
+							required
+						/>
+					</div>
+
+					<div class="form-group">
+						<label for="humidity"
+							><span class="parameter-icon">💧</span>Humidity (%):</label
+						>
+						<input
+							type="number"
+							id="humidity"
+							name="humidity"
+							step="0.1"
+							required
+						/>
+					</div>
+
+					<div class="form-group">
+						<label for="water_availability"
+							><span class="parameter-icon">🚿</span>Water
+							Availability:</label
+						>
+						<input
+							type="number"
+							id="water_availability"
+							name="water_availability"
+							step="0.1"
+							required
+						/>
+					</div>
+
+					<div class="form-group">
+						<label for="ph"
+							><span class="parameter-icon">🧪</span>Soil pH
+							Level:</label
+						>
+						<input type="number" id="ph" name="ph" step="0.1" required />
+						<div class="range-info">
+							<span>Acidic</span>
+							<span>Neutral</span>
+							<span>Alkaline</span>
+						</div>
+					</div>
+
+					<button type="submit">Predict Ideal Crop</button>
+				</form>
+			</div>
+
+			<footer>
+				<p>
+					Crop Prediction System | Advanced Machine Learning Algorithm
+					Usingg Random Forest By Debanjan Dutta
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>
